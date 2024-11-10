@@ -3,14 +3,16 @@
 
 using namespace std;
 
-// Fungsi untuk Bubble Sort
-void bubbleSort(int arr[], int n) {
+// Fungsi untuk Selection Sort
+void selectionSort(int arr[], string names[], int n) {
     for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            if (arr[j] > arr[j + 1]) {
-                swap(arr[j], arr[j + 1]);
-            }
+        int minIndex = i;
+        for (int j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIndex])
+                minIndex = j;
         }
+        swap(arr[i], arr[minIndex]);
+        swap(names[i], names[minIndex]);
     }
 }
 
@@ -30,25 +32,26 @@ int binarySearch(int arr[], int n, int target) {
 }
 
 int main() {
-    int values[] = {85, 90, 75, 60, 95, 70};  // Data nilai mahasiswa
-    int n = sizeof(values) / sizeof(values[0]);
-    
-    // Bubble Sort
-    bubbleSort(values, n);
-    cout << "Nilai setelah diurutkan: ";
-    for (int i = 0; i < n; i++)
-        cout << values[i] << " ";
-    cout << endl;
+    int prices[] = {20000, 50000, 15000, 30000, 45000};
+    string products[] = {"Mouse", "Keyboard", "Cable", "Charger", "USB"};
+    int n = sizeof(prices) / sizeof(prices[0]);
 
-    // Binary Search
-    int target;
-    cout << "Masukkan nilai yang ingin dicari: ";
-    cin >> target;
-    int result = binarySearch(values, n, target);
+    // Sorting harga produk
+    selectionSort(prices, products, n);
+    cout << "Produk setelah diurutkan berdasarkan harga:\n";
+    for (int i = 0; i < n; i++) {
+        cout << products[i] << " - Rp" << prices[i] << endl;
+    }
+
+    // Mencari produk berdasarkan harga
+    int targetPrice;
+    cout << "Masukkan harga yang ingin dicari: ";
+    cin >> targetPrice;
+    int result = binarySearch(prices, n, targetPrice);
     if (result != -1)
-        cout << "Nilai " << target << " ditemukan pada indeks " << result << endl;
+        cout << "Produk dengan harga Rp" << targetPrice << " adalah " << products[result] << endl;
     else
-        cout << "Nilai " << target << " tidak ditemukan" << endl;
+        cout << "Tidak ada produk dengan harga tersebut." << endl;
 
     return 0;
 }

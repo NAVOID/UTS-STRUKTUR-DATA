@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct Product {
+    string name;
+    int price;
+};
+
+// Fungsi untuk Bubble Sort
+void bubbleSort(Product arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j].price > arr[j + 1].price) {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+
+// Fungsi untuk Linear Search
+int linearSearch(Product arr[], int n, string target) {
+    for (int i = 0; i < n; i++) {
+        if (arr[i].name == target)
+            return i;
+    }
+    return -1;
+}
+
+int main() {
+    Product products[] = {{"Mouse", 20000}, {"Keyboard", 50000}, {"Cable", 15000}, {"Charger", 30000}, {"USB", 45000}};
+    int n = sizeof(products) / sizeof(products[0]);
+
+    // Mengurutkan harga produk
+    bubbleSort(products, n);
+    cout << "Produk setelah diurutkan berdasarkan harga:\n";
+    for (int i = 0; i < n; i++) {
+        cout << products[i].name << " - Rp" << products[i].price << endl;
+    }
+
+    // Mencari produk berdasarkan nama
+    string targetName;
+    cout << "Masukkan nama produk yang ingin dicari: ";
+    cin >> targetName;
+    int result = linearSearch(products, n, targetName);
+    if (result != -1)
+        cout << "Produk " << targetName << " ditemukan dengan harga Rp" << products[result].price << endl;
+    else
+        cout << "Produk " << targetName << " tidak ditemukan." << endl;
+
+    return 0;
+}

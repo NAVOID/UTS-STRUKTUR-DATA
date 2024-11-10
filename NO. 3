@@ -1,0 +1,62 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+struct Product {
+    string name;
+    int stock;
+};
+
+// Fungsi untuk Insertion Sort
+void insertionSort(Product *arr, int n) {
+    for (int i = 1; i < n; i++) {
+        Product key = arr[i];
+        int j = i - 1;
+        while (j >= 0 && arr[j].stock > key.stock) {
+            arr[j + 1] = arr[j];
+            j--;
+        }
+        arr[j + 1] = key;
+    }
+}
+
+// Fungsi untuk Binary Search
+int binarySearch(Product *arr, int n, int target) {
+    int left = 0, right = n - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid].stock == target)
+            return mid;
+        else if (arr[mid].stock < target)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    Product products[] = {{"Mouse", 25}, {"Keyboard", 40}, {"Cable", 15}, {"Charger", 35}, {"USB", 20}};
+    int n = sizeof(products) / sizeof(products[0]);
+    Product *ptr = products;  // Pointer ke array produk
+
+    // Mengurutkan produk berdasarkan stok
+    insertionSort(ptr, n);
+    cout << "Produk setelah diurutkan berdasarkan stok:\n";
+    for (int i = 0; i < n; i++) {
+        cout << products[i].name << " - Stok: " << products[i].stock << endl;
+    }
+
+    // Mencari produk berdasarkan stok
+    int targetStock;
+    cout << "Masukkan stok yang ingin dicari: ";
+    cin >> targetStock;
+    int result = binarySearch(ptr, n, targetStock);
+    if (result != -1)
+        cout << "Produk dengan stok " << targetStock << " adalah " << products[result].name << endl;
+    else
+        cout << "Tidak ada produk dengan stok tersebut." << endl;
+
+    return 0;
+}

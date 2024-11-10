@@ -1,0 +1,54 @@
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+// Fungsi untuk Bubble Sort
+void bubbleSort(int arr[], int n) {
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+
+// Fungsi untuk Binary Search
+int binarySearch(int arr[], int n, int target) {
+    int left = 0, right = n - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target)
+            return mid;
+        else if (arr[mid] < target)
+            left = mid + 1;
+        else
+            right = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    int values[] = {85, 90, 75, 60, 95, 70};  // Data nilai mahasiswa
+    int n = sizeof(values) / sizeof(values[0]);
+    
+    // Bubble Sort
+    bubbleSort(values, n);
+    cout << "Nilai setelah diurutkan: ";
+    for (int i = 0; i < n; i++)
+        cout << values[i] << " ";
+    cout << endl;
+
+    // Binary Search
+    int target;
+    cout << "Masukkan nilai yang ingin dicari: ";
+    cin >> target;
+    int result = binarySearch(values, n, target);
+    if (result != -1)
+        cout << "Nilai " << target << " ditemukan pada indeks " << result << endl;
+    else
+        cout << "Nilai " << target << " tidak ditemukan" << endl;
+
+    return 0;
+}
